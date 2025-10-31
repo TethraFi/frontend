@@ -491,7 +491,7 @@ function TradePageContent() {
                   onClick={() => {
                     setShowTapToTradeIntro(false);
                   }}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors cursor-pointer"
                 >
                   <svg
                     className="w-6 h-6"

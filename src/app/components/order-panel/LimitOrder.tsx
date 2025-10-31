@@ -832,7 +832,7 @@ const LimitOrder: React.FC<LimitOrderProps> = ({ activeTab = 'long' }) => {
             });
           }}
           disabled={!authenticated || !payAmount || !limitPrice || isProcessing || ((activeTab === 'long' || activeTab === 'short') && !hasLargeAllowance)}
-          className={`w-full py-4 rounded-lg font-bold text-white transition-all duration-200 ${
+          className={`w-full py-4 rounded-lg font-bold text-white transition-all duration-200 cursor-pointer ${
             !authenticated || !payAmount || !limitPrice || isProcessing || ((activeTab === 'long' || activeTab === 'short') && !hasLargeAllowance)
               ? 'bg-gray-600 cursor-not-allowed opacity-50'
               : activeTab === 'long'

@@ -890,7 +890,7 @@ const MarketOrder: React.FC<MarketOrderProps> = ({ activeTab = 'long' }) => {
       <button
         onClick={handleOpenPosition}
         disabled={isButtonDisabled}
-        className={`w-full py-4 rounded-lg font-bold text-white transition-all duration-200 ${
+        className={`w-full py-4 rounded-lg font-bold text-white transition-all duration-200 cursor-pointer ${
           isButtonDisabled
             ? 'bg-gray-600 cursor-not-allowed opacity-50'
             : activeTab === 'long'
