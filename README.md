@@ -5,7 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38bdf8)
 
-Modern, high-performance frontend for Tethra DEX perpetual futures trading platform.
+Modern, high-performance frontend for Tethra DEX perpetual futures trading platform supporting **Flow EVM Testnet** and **Base Sepolia**.
 
 ## 🌟 Key Features
 
@@ -21,7 +21,7 @@ Modern, high-performance frontend for Tethra DEX perpetual futures trading platf
 - 🔐 **Privy Integration** - Email/social login with embedded wallets
 - 🐛 **Wagmi & Viem** - Modern Web3 React hooks
 - 💵 **USDC Gas Payments** - Pay fees in USDC via Account Abstraction
-- 🔗 **Base Network** - Built on Base L2 for low fees and fast transactions
+- 🌐 **Multi-Chain Support** - Flow EVM Testnet & Base Sepolia
 
 ### User Experience
 - 🎨 **Modern UI/UX** - Sleek, responsive design with TailwindCSS
@@ -68,18 +68,36 @@ NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id_here
 NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
 NEXT_PUBLIC_WS_URL=ws://localhost:3001
 
-# Smart Contract Addresses (Base Sepolia)
+# Choose your network: Flow EVM Testnet (545) or Base Sepolia (84532)
 NEXT_PUBLIC_CHAIN_ID=84532
 NEXT_PUBLIC_RPC_URL=https://sepolia.base.org
+# For Flow: NEXT_PUBLIC_RPC_URL=https://testnet.evm.nodes.onflow.org
 
-# Contract addresses (copy from tethra-sc deployment)
-NEXT_PUBLIC_MARKET_EXECUTOR=0x...
-NEXT_PUBLIC_POSITION_MANAGER=0x...
-NEXT_PUBLIC_TREASURY_MANAGER=0x...
-NEXT_PUBLIC_MOCK_USDC=0x...
-NEXT_PUBLIC_LIMIT_EXECUTOR=0x...
-# ... add other contract addresses
+# Contract addresses - use corresponding addresses from backend/.env
+# For Base Sepolia:
+NEXT_PUBLIC_MARKET_EXECUTOR=0xA1badd2cea74931d668B7aB99015ede28735B3EF
+NEXT_PUBLIC_POSITION_MANAGER=0x8eA6059Bd95a9f0A47Ce361130ffB007415519aF
+NEXT_PUBLIC_TREASURY_MANAGER=0x157e68fBDD7D8294badeD37d876aEb7765986681
+NEXT_PUBLIC_MOCK_USDC=0x9d660c5d4BFE4b7fcC76f327b22ABF7773DD48c1
+NEXT_PUBLIC_LIMIT_EXECUTOR=0x8c297677FEA6F0beDC0D1fa139aa2bc23eE6234a
+# See backend/.env for complete list of Flow & Base addresses
 ```
+
+## 🌐 Multi-Chain Support
+
+Tethra DEX is deployed on two networks:
+
+### Flow EVM Testnet
+- **Chain ID**: 545
+- **RPC**: `https://testnet.evm.nodes.onflow.org`
+- **Faucet**: [Flow Testnet Faucet](https://testnet-faucet.onflow.org/)
+- All contract addresses in `../backend/.env` (FLOW_* prefix)
+
+### Base Sepolia
+- **Chain ID**: 84532
+- **RPC**: `https://sepolia.base.org`
+- **Faucet**: [Base Sepolia Faucet](https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet)
+- All contract addresses in `../backend/.env` (BASE_* prefix)
 
 ### Development
 
