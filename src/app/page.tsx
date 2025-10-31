@@ -1130,6 +1130,28 @@ export default function LandingPage() {
               </div>
             </div>
 
+            {/* Flow - Left Middle Top */}
+            <div className="absolute left-[22%] top-[38%] pointer-events-auto">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-16 h-16 aspect-square rounded-full bg-gray-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-cyan-500/40 hover:border-cyan-500 hover:scale-110 transition-all cursor-pointer">
+                  <svg viewBox="0 0 225 225" className="w-10 h-10" fill="none">
+                    <circle cx="112.5" cy="112.5" r="112.5" fill="#00EF8B" />
+                    <path
+                      d="M112.5 45C140.938 45 164.062 68.125 164.062 96.5625V128.438C164.062 156.875 140.938 180 112.5 180C84.0625 180 60.9375 156.875 60.9375 128.438V96.5625C60.9375 68.125 84.0625 45 112.5 45Z"
+                      fill="white"
+                    />
+                    <path
+                      d="M112.5 60C132.594 60 148.75 76.1562 148.75 96.25V128.75C148.75 148.844 132.594 165 112.5 165C92.4062 165 76.25 148.844 76.25 128.75V96.25C76.25 76.1562 92.4062 60 112.5 60Z"
+                      fill="#16FF99"
+                    />
+                  </svg>
+                </div>
+                <span className="text-xs font-semibold text-cyan-400 whitespace-nowrap">
+                  Flow
+                </span>
+              </div>
+            </div>
+
             {/* Foundry - Left Top */}
             <div className="absolute left-[15%] top-[25%] pointer-events-auto">
               <div className="flex flex-col items-center gap-2">
@@ -1384,7 +1406,7 @@ export default function LandingPage() {
 
           {/* Additional Info */}
           <div className="text-center mt-32">
-            <p className="text-gray-400 text-lg">More chains coming soon...</p>
+            {/* <p className="text-gray-400 text-lg">More chains coming soon...</p> */}
           </div>
         </div>
       </section>
@@ -1579,7 +1601,7 @@ export default function LandingPage() {
 
               <div className="pt-4">
                 <a
-                  href="https://github.com/Tethra-Dex"
+                  href="https://github.com/TethraFi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30"
