@@ -742,23 +742,6 @@ const WalletConnectButton: React.FC = () => {
             <div className="absolute top-full mt-2 right-0 w-48 bg-[#1A2332] border border-slate-700 rounded-lg shadow-xl z-50 overflow-hidden">
               <button
                 onClick={() => {
-                  setSelectedChain("base");
-                  setIsChainDropdownOpen(false);
-                  toast.success("Switched to Base");
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/50 transition-colors cursor-pointer ${
-                  selectedChain === "base" ? "bg-slate-700/30" : ""
-                }`}
-              >
-                <img
-                  src="data:image/svg+xml,%3Csvg width='111' height='111' viewBox='0 0 111 111' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.921 110.034C85.359 110.034 110.034 85.402 110.034 55.017C110.034 24.6319 85.359 0 54.921 0C26.0432 0 2.35281 22.1714 0 50.3923H72.8467V59.6416H3.9565e-07C2.35281 87.8625 26.0432 110.034 54.921 110.034Z' fill='%230052FF'/%3E%3C/svg%3E"
-                  alt="Base"
-                  className="w-6 h-6"
-                />
-                <span className="text-white text-sm font-medium">Base</span>
-              </button>
-              <button
-                onClick={() => {
                   setSelectedChain("flow");
                   setIsChainDropdownOpen(false);
                   toast.success("Switched to Flow");
@@ -773,6 +756,23 @@ const WalletConnectButton: React.FC = () => {
                   className="w-6 h-6 object-contain"
                 />
                 <span className="text-white text-sm font-medium">Flow</span>
+              </button>
+                <button
+                onClick={() => {
+                  setSelectedChain("base");
+                  setIsChainDropdownOpen(false);
+                  toast.success("Switched to Base");
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700/50 transition-colors cursor-pointer ${
+                  selectedChain === "base" ? "bg-slate-700/30" : ""
+                }`}
+              >
+                <img
+                  src="data:image/svg+xml,%3Csvg width='111' height='111' viewBox='0 0 111 111' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.921 110.034C85.359 110.034 110.034 85.402 110.034 55.017C110.034 24.6319 85.359 0 54.921 0C26.0432 0 2.35281 22.1714 0 50.3923H72.8467V59.6416H3.9565e-07C2.35281 87.8625 26.0432 110.034 54.921 110.034Z' fill='%230052FF'/%3E%3C/svg%3E"
+                  alt="Base"
+                  className="w-6 h-6"
+                />
+                <span className="text-white text-sm font-medium">Base</span>
               </button>
             </div>
           )}

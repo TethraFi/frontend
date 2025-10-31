@@ -658,8 +658,17 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
   }, [isDragging, dragStartX, dragStartY, dragStartScrollOffset, dragStartVerticalOffset]);
 
   const handleMouseUp = useCallback(async (e: React.MouseEvent<HTMLCanvasElement>) => {
+    // Store drag states before resetting them
+    const wasDragging = isDragging;
+    const didMove = hasMoved;
+    const clickedCell = hoveredCell;
+
+    // IMMEDIATELY reset drag states to prevent cursor sticking
+    setIsDragging(false);
+    setHasMoved(false);
+
     // If didn't move, treat as click
-    if (isDragging && !hasMoved && hoveredCell) {
+    if (wasDragging && !didMove && clickedCell) {
       // Don't place bet if already placing one
       if (isPlacingBet) {
         toast.error('Please wait, placing bet...');
@@ -667,23 +676,23 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
       }
 
       // Parse cell ID: "timestamp_priceLevel" (priceLevel is bottom of grid)
-      const [timestampStr, priceLevelStr] = hoveredCell.split('_');
+      const [timestampStr, priceLevelStr] = clickedCell.split('_');
       const gridStartTime = parseInt(timestampStr); // Start of grid cell (left edge)
       const gridBottomPrice = parseFloat(priceLevelStr);
-      
+
       // Use END time of grid cell as targetTime
       // Grid cell spans GRID_X_SECONDS (10 seconds)
       const targetTime = gridStartTime + GRID_X_SECONDS;
-      
+
       // Use CENTER of grid cell as target price
       // Grid cell spans from gridBottomPrice to (gridBottomPrice + GRID_Y_DOLLARS)
       const targetPrice = gridBottomPrice + (GRID_Y_DOLLARS / 2);
 
       // Get current price from latest price history
-      const entryPrice = priceHistory.length > 0 
-        ? priceHistory[priceHistory.length - 1].price 
+      const entryPrice = priceHistory.length > 0
+        ? priceHistory[priceHistory.length - 1].price
         : currentPrice;
-      
+
       // Use grid START time as entry time (not current time)
       // This ensures bet time range matches the grid cell time range
       const entryTime = gridStartTime;
@@ -698,17 +707,17 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
       // Toggle cell selection for visual feedback
       setSelectedCells(prev => {
         const newSet = new Set(prev);
-        if (newSet.has(hoveredCell)) {
-          newSet.delete(hoveredCell);
+        if (newSet.has(clickedCell)) {
+          newSet.delete(clickedCell);
         } else {
-          newSet.add(hoveredCell);
+          newSet.add(clickedCell);
         }
         return newSet;
       });
 
       // Check if binary trading is enabled
       if (!isBinaryTradingEnabled) {
-        toast.error('Please enable Binary Trading first by clicking "Enable Binary Trading" button', { 
+        toast.error('Please enable Binary Trading first by clicking "Enable Binary Trading" button', {
           duration: 4000,
           icon: '⚠️'
         });
@@ -717,7 +726,7 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
 
       // Use bet amount from props (set by sidebar)
       const betAmount = propBetAmount || '10';
-      
+
       // Place bet with session key (gasless, no signature popup)
       toast.loading('Placing bet...', { id: 'place-bet' });
 
@@ -737,10 +746,7 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
         toast.error(error.message || 'Failed to place bet', { id: 'place-bet' });
       }
     }
-
-    setIsDragging(false);
-    setHasMoved(false);
-  }, [isDragging, hasMoved, hoveredCell, priceHistory, currentPrice, isPlacingBet, placeBet, symbol]);
+  }, [isDragging, hasMoved, hoveredCell, priceHistory, currentPrice, isPlacingBet, placeBet, symbol, propBetAmount, isBinaryTradingEnabled, placeBetWithSession, GRID_X_SECONDS, GRID_Y_DOLLARS]);
 
   const handleMouseLeave = useCallback(() => {
     setIsDragging(false);
@@ -896,27 +902,76 @@ const PerSecondChart: React.FC<PerSecondChartProps> = ({
           }
         }}
         onTouchEnd={async () => {
-          if (isDragging && !hasMoved && hoveredCell) {
-            // Treat as tap/click
-            const [timestampStr, priceLevelStr] = hoveredCell.split('_');
-            const timestamp = parseInt(timestampStr);
-            const priceLevel = parseFloat(priceLevelStr);
+          // Store drag states before resetting
+          const wasDragging = isDragging;
+          const didMove = hasMoved;
+          const tappedCell = hoveredCell;
 
-            // Handle bet placement similar to mouse click
+          // IMMEDIATELY reset drag states to prevent cursor sticking
+          setIsDragging(false);
+          setHasMoved(false);
+
+          if (wasDragging && !didMove && tappedCell) {
+            // Treat as tap/click - reuse same logic as mouse click
             if (!isPlacingBet) {
-              const currentTime = Date.now();
-              const isFuture = timestamp > currentTime;
+              // Parse cell ID: "timestamp_priceLevel"
+              const [timestampStr, priceLevelStr] = tappedCell.split('_');
+              const gridStartTime = parseInt(timestampStr);
+              const gridBottomPrice = parseFloat(priceLevelStr);
 
-              if (isFuture) {
-                const currentPriceVal = typeof currentPrice === 'string' ? parseFloat(currentPrice) : currentPrice;
-                const isLong = priceLevel > currentPriceVal;
+              const targetTime = gridStartTime + GRID_X_SECONDS;
+              const targetPrice = gridBottomPrice + (GRID_Y_DOLLARS / 2);
 
-                // Place bet logic here (same as handleMouseUp)
-                console.log('Touch bet:', { timestamp, priceLevel, isLong });
+              const entryPrice = priceHistory.length > 0
+                ? priceHistory[priceHistory.length - 1].price
+                : currentPrice;
+              const entryTime = gridStartTime;
+
+              const now = Math.floor(Date.now() / 1000);
+              if (targetTime < now + 10) {
+                toast.error('Target must be at least 10 seconds in the future');
+                return;
+              }
+
+              // Toggle cell selection
+              setSelectedCells(prev => {
+                const newSet = new Set(prev);
+                if (newSet.has(tappedCell)) {
+                  newSet.delete(tappedCell);
+                } else {
+                  newSet.add(tappedCell);
+                }
+                return newSet;
+              });
+
+              if (!isBinaryTradingEnabled) {
+                toast.error('Please enable Binary Trading first', {
+                  duration: 4000,
+                  icon: '⚠️'
+                });
+                return;
+              }
+
+              const betAmount = propBetAmount || '10';
+              toast.loading('Placing bet...', { id: 'place-bet' });
+
+              try {
+                await placeBetWithSession({
+                  symbol,
+                  betAmount: betAmount,
+                  targetPrice: targetPrice.toString(),
+                  targetTime: targetTime,
+                  entryPrice: entryPrice.toString(),
+                  entryTime: entryTime,
+                });
+
+                toast.success('✅ Bet placed successfully (gasless!)', { id: 'place-bet' });
+              } catch (error: any) {
+                console.error('Failed to place bet:', error);
+                toast.error(error.message || 'Failed to place bet', { id: 'place-bet' });
               }
             }
           }
-          setIsDragging(false);
         }}
         style={{
           width: '100%',
