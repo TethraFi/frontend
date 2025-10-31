@@ -379,6 +379,8 @@ export function useCreateLimitOpenOrder() {
           : BigInt(Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60); // default 30 days
 
       // Prepare message hash for signing
+      // Note: Smart contract currently doesn't include chainId in verification
+      // Will need contract upgrade for full multichain signature support
       const messageHash = keccak256(
         encodePacked(
           ['address', 'string', 'bool', 'uint256', 'uint256', 'uint256', 'uint256', 'uint256', 'address'],
