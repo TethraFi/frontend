@@ -5,12 +5,13 @@
 import { useReadContract, useWaitForTransactionReceipt, usePublicClient, useWriteContract } from 'wagmi';
 import { parseUnits, formatUnits, encodeFunctionData } from 'viem';
 import { useState, useEffect } from 'react';
-import { baseSepolia } from 'wagmi/chains';
 import { useWallets } from '@privy-io/react-auth';
 import { USDC_PAYMASTER_ADDRESS, USDC_ADDRESS, USDC_DECIMALS } from '@/config/contracts';
 import USDCPaymasterABI from '@/contracts/abis/USDCPaymaster.json';
 import MockUSDCABI from '@/contracts/abis/MockUSDC.json';
 import { useEmbeddedWallet } from './useEmbeddedWallet';
+import { useChain } from '@/app/contexts/ChainContext';
+import { getChainConfig } from '@/config/chains';
 
 /**
  * Hook to get user's USDC deposit balance in paymaster
@@ -42,6 +43,7 @@ export function usePaymasterBalance() {
 export function useDepositToPaymaster() {
   const { address } = useEmbeddedWallet();
   const { wallets } = useWallets();
+  const { selectedChain } = useChain();
   const [hash, setHash] = useState<`0x${string}` | undefined>();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -62,7 +64,8 @@ export function useDepositToPaymaster() {
         throw new Error('Embedded wallet not found');
       }
 
-      await embeddedWallet.switchChain(baseSepolia.id);
+      const chainConfig = getChainConfig(selectedChain);
+      await embeddedWallet.switchChain(chainConfig.id);
       const walletClient = await embeddedWallet.getEthereumProvider();
       
       if (!walletClient) {
@@ -117,13 +120,12 @@ export function useWithdrawFromPaymaster() {
 
   const withdraw = async (amount: string) => {
     const amountBigInt = parseUnits(amount, USDC_DECIMALS);
-    
+
     await writeContractAsync({
       address: USDC_PAYMASTER_ADDRESS,
       abi: USDCPaymasterABI,
       functionName: 'withdraw',
       args: [amountBigInt],
-      chainId: baseSepolia.id,
     });
   };
 
@@ -143,6 +145,7 @@ export function useWithdrawFromPaymaster() {
 export function useApproveUSDCForPaymaster() {
   const { address } = useEmbeddedWallet();
   const { wallets } = useWallets();
+  const { selectedChain } = useChain();
   const [hash, setHash] = useState<`0x${string}` | undefined>();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -181,8 +184,9 @@ export function useApproveUSDCForPaymaster() {
       const amountBigInt = parseUnits(amount, USDC_DECIMALS);
       
       // Switch to correct chain first
-      await embeddedWallet.switchChain(baseSepolia.id);
-      
+      const chainConfig = getChainConfig(selectedChain);
+      await embeddedWallet.switchChain(chainConfig.id);
+
       // Get wallet client
       const walletClient = await embeddedWallet.getEthereumProvider();
       

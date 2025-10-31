@@ -122,33 +122,6 @@ export default function SidebarContent({
           );
         })}
       </nav>
-
-      {/* Built on Base Badge */}
-      {showBaseBadge && (
-        <div className="mt-auto w-full mb-12">
-          <div
-            className={`flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg shadow-lg hover:shadow-blue-300/20 transition-all duration-300 cursor-pointer ${
-              isExpanded ? "justify-center px-3 py-2.5" : "justify-center p-2.5"
-            }`}
-          >
-            <Image
-              src="/images/base-logo.png"
-              alt="Base Logo"
-              width={18}
-              height={18}
-              className="rounded-full"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-            {isExpanded && (
-              <span className="text-xs font-bold text-white tracking-wide whitespace-nowrap">
-                Build on Base
-              </span>
-            )}
-          </div>
-        </div>
-      )}
     </aside>
   );
 }

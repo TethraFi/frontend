@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ChevronDown, Info, Star } from 'lucide-react';
 import { useMarket } from '../../contexts/MarketContext';
 import { usePrivy, useWallets } from '@privy-io/react-auth';
-import { baseSepolia } from 'wagmi/chains';
 import { parseUnits } from 'viem';
 import { useMarketOrderFlow, useRelayMarketOrder, useApproveUSDCForTrading, calculatePositionCost } from '@/hooks/useMarketOrder';
 import { usePaymasterFlow } from '@/hooks/usePaymaster';
@@ -13,6 +12,8 @@ import { USDC_DECIMALS } from '@/config/contracts';
 import { toast } from 'react-hot-toast';
 import { useTPSL } from '@/hooks/useTPSL';
 import { useUserPositions } from '@/hooks/usePositions';
+import { useChain } from '../../contexts/ChainContext';
+import { getChainConfig } from '@/config/chains';
 
 interface Market {
   symbol: string;
@@ -162,6 +163,7 @@ const MarketOrder: React.FC<MarketOrderProps> = ({ activeTab = 'long' }) => {
   const { authenticated, user } = usePrivy();
   const { wallets, ready: walletsReady } = useWallets();
   const { address: embeddedAddress, hasEmbeddedWallet } = useEmbeddedWallet();
+  const { selectedChain } = useChain();
   const [leverage, setLeverage] = useState(10);
   const [leverageInput, setLeverageInput] = useState<string>('10.0');
   const { usdcBalance, isLoadingBalance } = useUSDCBalance();
@@ -405,7 +407,8 @@ const MarketOrder: React.FC<MarketOrderProps> = ({ activeTab = 'long' }) => {
 
       // Set embedded wallet as active
       console.log('Setting active wallet:', embeddedWallet.address);
-      await embeddedWallet.switchChain(baseSepolia.id);
+      const chainConfig = getChainConfig(selectedChain);
+      await embeddedWallet.switchChain(chainConfig.id);
 
       // Calculate position costs
       const { totalCost, tradingFee, positionSize } = calculatePositionCost(payAmount, leverage);

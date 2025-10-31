@@ -11,7 +11,7 @@ interface ChainContextType {
 const ChainContext = createContext<ChainContextType | undefined>(undefined);
 
 export const ChainProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [selectedChain, setSelectedChain] = useState<ChainType>('base');
+  const [selectedChain, setSelectedChain] = useState<ChainType>('flow');
 
   return (
     <ChainContext.Provider value={{ selectedChain, setSelectedChain }}>

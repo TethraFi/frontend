@@ -7,10 +7,11 @@
 import { useWaitForTransactionReceipt } from 'wagmi';
 import { encodeFunctionData } from 'viem';
 import { useState, useCallback } from 'react';
-import { baseSepolia } from 'wagmi/chains';
 import { useWallets } from '@privy-io/react-auth';
 import { MARKET_EXECUTOR_ADDRESS } from '@/config/contracts';
 import MarketExecutorJSON from '@/contracts/abis/MarketExecutor.json';
+import { useChain } from '@/app/contexts/ChainContext';
+import { getChainConfig } from '@/config/chains';
 
 // Extract the actual ABI array from the JSON object
 const MarketExecutorABI = (MarketExecutorJSON as any).abi;
@@ -30,6 +31,7 @@ export interface DirectCloseParams {
 export function useDirectClosePosition() {
   const { address } = useEmbeddedWallet();
   const { wallets } = useWallets();
+  const { selectedChain } = useChain();
   const [isLoadingPrice, setIsLoadingPrice] = useState(false);
   const [hash, setHash] = useState<`0x${string}` | undefined>();
   const [isPending, setIsPending] = useState(false);
@@ -72,7 +74,8 @@ export function useDirectClosePosition() {
       
       console.log('  Exit Price:', signedPrice.price);
 
-      await embeddedWallet.switchChain(baseSepolia.id);
+      const chainConfig = getChainConfig(selectedChain);
+      await embeddedWallet.switchChain(chainConfig.id);
       const walletClient = await embeddedWallet.getEthereumProvider();
       
       if (!walletClient) {

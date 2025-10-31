@@ -107,11 +107,12 @@ const WalletConnectButton: React.FC = () => {
     autoCreateEmbeddedWallet();
   }, [authenticated, user, createWallet]);
 
-  // Auto-switch to Base when authenticated
+  // Auto-switch to Flow when authenticated
   useEffect(() => {
-    if (authenticated && chainId !== baseSepolia.id) {
-      switchChain({ chainId: baseSepolia.id });
-      toast.success("Switching to Base Sepolia network...");
+    const flowEvmTestnetId = 545; // Flow EVM Testnet chain ID
+    if (authenticated && chainId !== flowEvmTestnetId) {
+      switchChain({ chainId: flowEvmTestnetId });
+      toast.success("Switching to Flow EVM Testnet network...");
     }
   }, [authenticated, chainId, switchChain]);
 

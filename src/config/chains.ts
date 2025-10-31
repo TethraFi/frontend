@@ -4,7 +4,7 @@
  * Configuration for Base Sepolia and Flow EVM chains
  */
 
-export type ChainType = 'base' | 'flow';
+export type ChainType =  'flow' | 'base';
 
 export interface ChainConfig {
   id: number;

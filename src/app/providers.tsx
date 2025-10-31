@@ -50,7 +50,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             createOnLogin: 'all-users',
           },
         },
-        defaultChain: baseSepolia,
+        defaultChain: flowEvmTestnet as any,
         supportedChains: [baseSepolia, flowEvmTestnet as any],
       }}
     >
