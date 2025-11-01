@@ -8,9 +8,9 @@ import { useSessionKey } from '@/hooks/useSessionKey';
 import { useChain } from '@/app/contexts/ChainContext';
 import axios from 'axios';
 
+import { getChainConfig } from '@/config/chains';
+
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
-const ONE_TAP_PROFIT_ADDRESS = process.env.NEXT_PUBLIC_ONE_TAP_PROFIT_ADDRESS as `0x${string}`;
-const USDC_ADDRESS = process.env.NEXT_PUBLIC_USDC_TOKEN_ADDRESS as `0x${string}`;
 
 const USDC_ABI = [
   {
@@ -75,6 +75,11 @@ export const useOneTapProfit = () => {
   const [isLoadingBets, setIsLoadingBets] = useState(false);
 
   const embeddedWallet = wallets.find((w) => w.walletClientType === 'privy');
+  
+  // Get chain-specific contract addresses
+  const chainConfig = getChainConfig(selectedChain);
+  const ONE_TAP_PROFIT_ADDRESS = chainConfig.contracts.oneTapProfit as `0x${string}`;
+  const USDC_ADDRESS = chainConfig.contracts.mockUSDC as `0x${string}`;
   
   // Session key hook for gasless trading
   const {
