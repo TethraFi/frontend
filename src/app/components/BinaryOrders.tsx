@@ -35,7 +35,10 @@ const BinaryOrders = () => {
       }
 
       try {
-        setIsLoading(true);
+        // Only show loading on first fetch
+        if (orders.length === 0) {
+          setIsLoading(true);
+        }
 
         // Fetch from both chains in parallel
         const [baseResponse, flowResponse] = await Promise.all([
@@ -76,8 +79,12 @@ const BinaryOrders = () => {
         // Sort by creation time (newest first)
         allOrders.sort((a, b) => b.createdAt - a.createdAt);
 
-        console.log('🔍 Binary Orders - All orders from both chains:', allOrders);
-        setOrders(allOrders);
+        // Only update state if data actually changed (prevents unnecessary re-renders that cause scroll reset)
+        const ordersChanged = JSON.stringify(allOrders) !== JSON.stringify(orders);
+        if (ordersChanged) {
+          console.log('🔍 Binary Orders - Data changed, updating...');
+          setOrders(allOrders);
+        }
       } catch (error) {
         console.error('❌ Error fetching binary orders:', error);
         setOrders([]);
@@ -91,7 +98,7 @@ const BinaryOrders = () => {
     // Poll every 1 second to get updates (faster UI responsiveness)
     const interval = setInterval(fetchOrders, 1000);
     return () => clearInterval(interval);
-  }, [address]);
+  }, [address, orders]);
 
   // Get crypto icon based on symbol
   const getCryptoIcon = (symbol: string) => {
