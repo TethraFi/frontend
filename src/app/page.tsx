@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LandingPage() {
   const [scrollY, setScrollY] = useState(0);
@@ -24,21 +24,21 @@ export default function LandingPage() {
 
   const slides = [
     {
-      title: "Real-Time Charts",
+      title: 'Real-Time Charts',
       description:
-        "Live market data with advanced technical indicators and trading tools",
-      image: "/images/DEX.png",
+        'Live market data with advanced technical indicators and trading tools',
+      image: '/images/DEX.png',
     },
     {
-      title: "Tap to Position",
-      description: "Tap to trade to open position when the line crosses it",
-      image: "/images/TapPosition.png",
+      title: 'Tap to Position',
+      description: 'Tap to trade to open position when the line crosses it',
+      image: '/images/TapPosition.png',
     },
     {
-      title: "One Tap to Profit",
+      title: 'One Tap to Profit',
       description:
-        "Instantly profit with a single tap when the price line crosses your position",
-      image: "/images/TapProfit.png",
+        'Instantly profit with a single tap when the price line crosses your position',
+      image: '/images/TapProfit.png',
     },
   ];
 
@@ -48,8 +48,8 @@ export default function LandingPage() {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Handle header visibility based on user activity
@@ -73,11 +73,11 @@ export default function LandingPage() {
     };
 
     // Add event listeners for user activity
-    window.addEventListener("mousemove", resetInactivityTimer);
-    window.addEventListener("mousedown", resetInactivityTimer);
-    window.addEventListener("keydown", resetInactivityTimer);
-    window.addEventListener("scroll", resetInactivityTimer);
-    window.addEventListener("touchstart", resetInactivityTimer);
+    window.addEventListener('mousemove', resetInactivityTimer);
+    window.addEventListener('mousedown', resetInactivityTimer);
+    window.addEventListener('keydown', resetInactivityTimer);
+    window.addEventListener('scroll', resetInactivityTimer);
+    window.addEventListener('touchstart', resetInactivityTimer);
 
     // Initialize timer
     resetInactivityTimer();
@@ -87,11 +87,11 @@ export default function LandingPage() {
       if (inactivityTimerRef.current) {
         clearTimeout(inactivityTimerRef.current);
       }
-      window.removeEventListener("mousemove", resetInactivityTimer);
-      window.removeEventListener("mousedown", resetInactivityTimer);
-      window.removeEventListener("keydown", resetInactivityTimer);
-      window.removeEventListener("scroll", resetInactivityTimer);
-      window.removeEventListener("touchstart", resetInactivityTimer);
+      window.removeEventListener('mousemove', resetInactivityTimer);
+      window.removeEventListener('mousedown', resetInactivityTimer);
+      window.removeEventListener('keydown', resetInactivityTimer);
+      window.removeEventListener('scroll', resetInactivityTimer);
+      window.removeEventListener('touchstart', resetInactivityTimer);
     };
   }, []);
 
@@ -99,7 +99,7 @@ export default function LandingPage() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     canvas.width = window.innerWidth;
@@ -123,7 +123,7 @@ export default function LandingPage() {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
-        color: Math.random() > 0.5 ? "#06b6d4" : "#10b981",
+        color: Math.random() > 0.5 ? '#06b6d4' : '#10b981',
         opacity: Math.random() * 0.5 + 0.1,
       });
     }
@@ -178,11 +178,11 @@ export default function LandingPage() {
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -228,10 +228,10 @@ export default function LandingPage() {
       }
     };
 
-    window.addEventListener("scroll", handleChainsScroll);
+    window.addEventListener('scroll', handleChainsScroll);
     handleChainsScroll(); // Check on mount
 
-    return () => window.removeEventListener("scroll", handleChainsScroll);
+    return () => window.removeEventListener('scroll', handleChainsScroll);
   }, []);
 
   const handleSlideChange = (index: number) => {
@@ -245,15 +245,15 @@ export default function LandingPage() {
       <header
         className={`fixed top-0 left-0 w-full z-30 flex justify-center transition-all duration-700 p-8 md:px-12 ${
           isHeaderVisible
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0"
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0'
         }`}
       >
         <nav
           className={`flex items-center justify-between transition-all duration-700 ${
             scrollY > 50
-              ? "bg-black/90 border border-cyan-500/30 shadow-lg shadow-cyan-500/10 backdrop-blur-sm rounded-2xl px-6 py-3 max-w-5xl w-full"
-              : "bg-transparent border-transparent w-full px-0 py-0"
+              ? 'bg-black/90 border border-cyan-500/30 shadow-lg shadow-cyan-500/10 backdrop-blur-sm rounded-2xl px-6 py-3 max-w-5xl w-full'
+              : 'bg-transparent border-transparent w-full px-0 py-0'
           }`}
         >
           <Link href="/" className="flex items-center gap-3">
@@ -315,13 +315,13 @@ export default function LandingPage() {
           <div
             className="absolute w-full h-full bg-gradient-to-br from-cyan-500/10 via-transparent to-emerald-500/10"
             style={{
-              animation: "gradientShift 15s ease infinite",
+              animation: 'gradientShift 15s ease infinite',
             }}
           />
           <div
             className="absolute w-full h-full bg-gradient-to-tl from-emerald-500/10 via-transparent to-cyan-500/10"
             style={{
-              animation: "gradientShift 20s ease infinite reverse",
+              animation: 'gradientShift 20s ease infinite reverse',
             }}
           />
         </div>
@@ -335,8 +335,8 @@ export default function LandingPage() {
                 linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(16, 185, 129, 0.1) 1px, transparent 1px)
               `,
-              backgroundSize: "50px 50px",
-              animation: "gridMove 20s linear infinite",
+              backgroundSize: '50px 50px',
+              animation: 'gridMove 20s linear infinite',
             }}
           />
         </div>
@@ -346,41 +346,41 @@ export default function LandingPage() {
           <div
             className="absolute w-96 h-96 rounded-full bg-cyan-500/20 blur-3xl"
             style={{
-              top: "10%",
-              left: "10%",
-              animation: "float 20s ease-in-out infinite",
+              top: '10%',
+              left: '10%',
+              animation: 'float 20s ease-in-out infinite',
             }}
           />
           <div
             className="absolute w-96 h-96 rounded-full bg-emerald-500/20 blur-3xl"
             style={{
-              bottom: "10%",
-              right: "10%",
-              animation: "float 25s ease-in-out infinite reverse",
+              bottom: '10%',
+              right: '10%',
+              animation: 'float 25s ease-in-out infinite reverse',
             }}
           />
           <div
             className="absolute w-64 h-64 rounded-full bg-cyan-500/10 blur-2xl"
             style={{
-              top: "50%",
-              right: "20%",
-              animation: "float 30s ease-in-out infinite",
+              top: '50%',
+              right: '20%',
+              animation: 'float 30s ease-in-out infinite',
             }}
           />
           <div
             className="absolute w-80 h-80 rounded-full bg-emerald-500/15 blur-3xl"
             style={{
-              top: "30%",
-              left: "60%",
-              animation: "float 35s ease-in-out infinite",
+              top: '30%',
+              left: '60%',
+              animation: 'float 35s ease-in-out infinite',
             }}
           />
           <div
             className="absolute w-72 h-72 rounded-full bg-cyan-500/15 blur-2xl"
             style={{
-              bottom: "30%",
-              left: "30%",
-              animation: "float 28s ease-in-out infinite reverse",
+              bottom: '30%',
+              left: '30%',
+              animation: 'float 28s ease-in-out infinite reverse',
             }}
           />
         </div>
@@ -390,34 +390,34 @@ export default function LandingPage() {
           <div
             className="absolute w-12 h-12 border border-cyan-500/20 rotate-45"
             style={{
-              top: "20%",
-              left: "15%",
-              animation: "floatSlow 40s ease-in-out infinite",
+              top: '20%',
+              left: '15%',
+              animation: 'floatSlow 40s ease-in-out infinite',
             }}
           />
           <div
             className="absolute w-16 h-16 border border-emerald-500/20 rounded-full"
             style={{
-              top: "70%",
-              right: "25%",
-              animation: "floatSlow 45s ease-in-out infinite reverse",
+              top: '70%',
+              right: '25%',
+              animation: 'floatSlow 45s ease-in-out infinite reverse',
             }}
           />
           <div
             className="absolute w-10 h-10 border border-cyan-500/30"
             style={{
-              top: "40%",
-              right: "15%",
+              top: '40%',
+              right: '15%',
               animation:
-                "rotate 60s linear infinite, floatSlow 35s ease-in-out infinite",
+                'rotate 60s linear infinite, floatSlow 35s ease-in-out infinite',
             }}
           />
           <div
             className="absolute w-8 h-8 bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 rotate-12"
             style={{
-              bottom: "40%",
-              left: "20%",
-              animation: "floatSlow 50s ease-in-out infinite",
+              bottom: '40%',
+              left: '20%',
+              animation: 'floatSlow 50s ease-in-out infinite',
             }}
           />
         </div>
@@ -432,41 +432,41 @@ export default function LandingPage() {
             {/* Vertical Lines - Much Longer - Animated */}
             <div
               className="absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-cyan-500/40 to-transparent animate-pulse"
-              style={{ animationDuration: "3s" }}
+              style={{ animationDuration: '3s' }}
             ></div>
             <div
               className="absolute left-12 top-0 w-0.5 h-5/6 bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "4s" }}
+              style={{ animationDuration: '4s' }}
             ></div>
             <div
               className="absolute left-24 top-0 w-0.5 h-3/4 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "5s" }}
+              style={{ animationDuration: '5s' }}
             ></div>
             <div
               className="absolute left-36 top-0 w-0.5 h-2/3 bg-gradient-to-b from-transparent via-cyan-500/10 to-transparent animate-pulse"
-              style={{ animationDuration: "6s" }}
+              style={{ animationDuration: '6s' }}
             ></div>
 
             {/* Horizontal Lines - Much Longer */}
             <div
               className="absolute left-0 top-1/2 w-96 h-0.5 bg-gradient-to-r from-cyan-500/40 to-transparent animate-pulse"
-              style={{ animationDuration: "4s" }}
+              style={{ animationDuration: '4s' }}
             ></div>
             <div
               className="absolute left-0 top-1/3 w-72 h-0.5 bg-gradient-to-r from-cyan-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "5s" }}
+              style={{ animationDuration: '5s' }}
             ></div>
             <div
               className="absolute left-0 top-2/3 w-72 h-0.5 bg-gradient-to-r from-cyan-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "6s" }}
+              style={{ animationDuration: '6s' }}
             ></div>
             <div
               className="absolute left-0 top-1/4 w-56 h-0.5 bg-gradient-to-r from-cyan-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "7s" }}
+              style={{ animationDuration: '7s' }}
             ></div>
             <div
               className="absolute left-0 top-3/4 w-56 h-0.5 bg-gradient-to-r from-cyan-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "8s" }}
+              style={{ animationDuration: '8s' }}
             ></div>
 
             {/* Corner Accent */}
@@ -478,41 +478,41 @@ export default function LandingPage() {
             {/* Vertical Lines - Much Longer - Animated */}
             <div
               className="absolute right-0 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-emerald-500/40 to-transparent animate-pulse"
-              style={{ animationDuration: "3s" }}
+              style={{ animationDuration: '3s' }}
             ></div>
             <div
               className="absolute right-12 top-0 w-0.5 h-5/6 bg-gradient-to-b from-transparent via-emerald-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "4s" }}
+              style={{ animationDuration: '4s' }}
             ></div>
             <div
               className="absolute right-24 top-0 w-0.5 h-3/4 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "5s" }}
+              style={{ animationDuration: '5s' }}
             ></div>
             <div
               className="absolute right-36 top-0 w-0.5 h-2/3 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent animate-pulse"
-              style={{ animationDuration: "6s" }}
+              style={{ animationDuration: '6s' }}
             ></div>
 
             {/* Horizontal Lines - Much Longer */}
             <div
               className="absolute right-0 top-1/2 w-96 h-0.5 bg-gradient-to-l from-emerald-500/40 to-transparent animate-pulse"
-              style={{ animationDuration: "4s" }}
+              style={{ animationDuration: '4s' }}
             ></div>
             <div
               className="absolute right-0 top-1/3 w-72 h-0.5 bg-gradient-to-l from-emerald-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "5s" }}
+              style={{ animationDuration: '5s' }}
             ></div>
             <div
               className="absolute right-0 top-2/3 w-72 h-0.5 bg-gradient-to-l from-emerald-500/30 to-transparent animate-pulse"
-              style={{ animationDuration: "6s" }}
+              style={{ animationDuration: '6s' }}
             ></div>
             <div
               className="absolute right-0 top-1/4 w-56 h-0.5 bg-gradient-to-l from-emerald-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "7s" }}
+              style={{ animationDuration: '7s' }}
             ></div>
             <div
               className="absolute right-0 top-3/4 w-56 h-0.5 bg-gradient-to-l from-emerald-500/20 to-transparent animate-pulse"
-              style={{ animationDuration: "8s" }}
+              style={{ animationDuration: '8s' }}
             ></div>
 
             {/* Corner Accent */}
@@ -607,24 +607,24 @@ export default function LandingPage() {
         {/* TAP Text - Background Layer (Cyan - matching left logo) with Parallax */}
         <div
           className={`absolute top-12 left-0 pointer-events-none select-none pl-2 md:pl-5 transition-all duration-1000 ${
-            isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"
+            isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
           }`}
           style={{
             zIndex: 1,
             transform: `translateY(${scrollY * 0.3}px) translateX(${
-              isLoaded ? 0 : "-5rem"
+              isLoaded ? 0 : '-5rem'
             })`,
-            transitionDelay: "200ms",
+            transitionDelay: '200ms',
           }}
         >
           <h2
             className="text-[12rem] md:text-[16rem] 2xl:text-[20rem] 3xl:text-[24rem] font-black leading-none text-[#06b6d4] opacity-70 hover:opacity-100 transition-opacity duration-500 [transform:scaleY(1.8)_scaleX(0.7)] md:[transform:scaleY(1.4)_scaleX(0.7)]"
             style={{
-              fontFamily: "Arial Black, Impact, sans-serif",
-              letterSpacing: "-0.05em",
-              fontStretch: "ultra-condensed",
-              transformOrigin: "top left",
-              textShadow: "0 0 40px rgba(6, 182, 212, 0.3)",
+              fontFamily: 'Arial Black, Impact, sans-serif',
+              letterSpacing: '-0.05em',
+              fontStretch: 'ultra-condensed',
+              transformOrigin: 'top left',
+              textShadow: '0 0 40px rgba(6, 182, 212, 0.3)',
             }}
           >
             TAP
@@ -634,24 +634,24 @@ export default function LandingPage() {
         {/* TRADE Text - Background Layer (Emerald - matching right logo) with Parallax */}
         <div
           className={`absolute -bottom-4 right-0 pointer-events-none select-none pr-2 md:pr-5 transition-all duration-1000 ${
-            isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-20"
+            isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
           }`}
           style={{
             zIndex: 1,
             transform: `translateY(${-scrollY * 0.3}px) translateX(${
-              isLoaded ? 0 : "5rem"
+              isLoaded ? 0 : '5rem'
             })`,
-            transitionDelay: "300ms",
+            transitionDelay: '300ms',
           }}
         >
           <h2
             className="text-[12rem] md:text-[16rem] lg:text-[20rem] 2xl:text-[23rem] 3xl:text-[26rem] font-black leading-none text-[#10b981] opacity-70 hover:opacity-100 transition-opacity duration-500 [transform:scaleY(2)_scaleX(0.7)] md:[transform:scaleY(1.4)_scaleX(0.7)]"
             style={{
-              fontFamily: "Arial Black, Impact, sans-serif",
-              letterSpacing: "-0.05em",
-              fontStretch: "ultra-condensed",
-              transformOrigin: "bottom right",
-              textShadow: "0 0 40px rgba(16, 185, 129, 0.3)",
+              fontFamily: 'Arial Black, Impact, sans-serif',
+              letterSpacing: '-0.05em',
+              fontStretch: 'ultra-condensed',
+              transformOrigin: 'bottom right',
+              textShadow: '0 0 40px rgba(16, 185, 129, 0.3)',
             }}
           >
             TRADE
@@ -661,13 +661,13 @@ export default function LandingPage() {
         {/* Center Content - Front Layer */}
         <div
           className={`relative z-10 flex items-center justify-center min-h-screen lg:-translate-x-48 md:translate-x-0 translate-x-10 translate-y-5 transition-all duration-1000 ${
-            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-75"
+            isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
           }`}
           style={{
             transform: `translate(-3rem, ${scrollY * -0.1}px) scale(${
               isLoaded ? 1 : 0.75
             })`,
-            transitionDelay: "100ms",
+            transitionDelay: '100ms',
           }}
         >
           {/* Logo with dramatic effects */}
@@ -676,13 +676,13 @@ export default function LandingPage() {
             <div
               className="absolute inset-0 rounded-full border-2 border-cyan-500/30 scale-125"
               style={{
-                animation: "rotate 20s linear infinite",
+                animation: 'rotate 20s linear infinite',
               }}
             />
             <div
               className="absolute inset-0 rounded-full border-2 border-emerald-500/30 scale-150"
               style={{
-                animation: "rotate 30s linear infinite reverse",
+                animation: 'rotate 30s linear infinite reverse',
               }}
             />
 
@@ -693,7 +693,7 @@ export default function LandingPage() {
             <div
               className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 blur-2xl"
               style={{
-                animation: "pulse 4s ease-in-out infinite",
+                animation: 'pulse 4s ease-in-out infinite',
               }}
             />
 
@@ -707,7 +707,7 @@ export default function LandingPage() {
               priority
               style={{
                 filter:
-                  "drop-shadow(0 0 30px rgba(6,182,212,0.3)) drop-shadow(0 0 50px rgba(16,185,129,0.2))",
+                  'drop-shadow(0 0 30px rgba(6,182,212,0.3)) drop-shadow(0 0 50px rgba(16,185,129,0.2))',
               }}
             />
           </div>
@@ -716,13 +716,13 @@ export default function LandingPage() {
         {/* Description Text - Bottom Left */}
         <div
           className={`hidden lg:block absolute bottom-16 left-16 max-w-2xl z-10 transition-all duration-1000 ${
-            isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+            isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}
           style={{
             transform: `translateY(${scrollY * -0.2}px) translateX(${
-              isLoaded ? 0 : "-2.5rem"
+              isLoaded ? 0 : '-2.5rem'
             })`,
-            transitionDelay: "400ms",
+            transitionDelay: '400ms',
           }}
         >
           <div className="relative group">
@@ -734,11 +734,11 @@ export default function LandingPage() {
               <div
                 className="absolute inset-0 bg-gradient-to-r from-cyan-500/50 via-emerald-500/50 to-cyan-500/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
-                  padding: "2px",
+                  padding: '2px',
                   WebkitMask:
-                    "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                  WebkitMaskComposite: "xor",
-                  maskComposite: "exclude",
+                    'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
                 }}
               />
             </div>
@@ -815,8 +815,8 @@ export default function LandingPage() {
                   key={index}
                   className={`absolute inset-0 transition-all duration-700 ease-in-out ${
                     index === currentSlide
-                      ? "opacity-100 translate-x-0 scale-100"
-                      : "opacity-0 translate-x-20 scale-95 pointer-events-none"
+                      ? 'opacity-100 translate-x-0 scale-100'
+                      : 'opacity-0 translate-x-20 scale-95 pointer-events-none'
                   }`}
                 >
                   <div className="relative group">
@@ -852,8 +852,8 @@ export default function LandingPage() {
                     onClick={() => handleSlideChange(index)}
                     className={`relative overflow-hidden transition-all duration-500 ease-in-out rounded-full ${
                       index === currentSlide
-                        ? "w-12 h-3"
-                        : "w-3 h-3 bg-gray-600 hover:bg-gray-400 hover:scale-110"
+                        ? 'w-12 h-3'
+                        : 'w-3 h-3 bg-gray-600 hover:bg-gray-400 hover:scale-110'
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   >
@@ -972,7 +972,7 @@ export default function LandingPage() {
                 linear-gradient(to right, rgba(16, 185, 129, 0.1) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
               `,
-              backgroundSize: "60px 60px",
+              backgroundSize: '60px 60px',
             }}
           />
         </div>
@@ -986,10 +986,10 @@ export default function LandingPage() {
         <div
           className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none z-10 transition-all duration-700 ease-out hidden lg:block"
           style={{
-            left: "-250px",
+            left: '-250px',
             opacity: isChainsVisible ? 1 : 0,
             transform: `translateY(-50%) translateX(${
-              isChainsVisible ? "0" : "-100px"
+              isChainsVisible ? '0' : '-100px'
             })`,
           }}
         >
@@ -998,7 +998,7 @@ export default function LandingPage() {
             <div
               className="absolute inset-0 rounded-full border-4 border-emerald-500/30"
               style={{
-                clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
+                clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
               }}
             ></div>
 
@@ -1006,7 +1006,7 @@ export default function LandingPage() {
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
               style={{
-                clipPath: "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)",
+                clipPath: 'polygon(50% 0, 100% 0, 100% 100%, 50% 100%)',
               }}
             >
               <div className="relative bg-black rounded-full p-6 border-2 border-emerald-500/50">
@@ -1081,10 +1081,10 @@ export default function LandingPage() {
         <div
           className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none z-10 transition-all duration-700 ease-out hidden lg:block"
           style={{
-            right: "-250px",
+            right: '-250px',
             opacity: isChainsVisible ? 1 : 0,
             transform: `translateY(-50%) translateX(${
-              isChainsVisible ? "0" : "100px"
+              isChainsVisible ? '0' : '100px'
             })`,
           }}
         >
@@ -1092,13 +1092,13 @@ export default function LandingPage() {
             {/* Half Circle Border - Left half visible */}
             <div
               className="absolute inset-0 rounded-full border-4 border-cyan-500/30"
-              style={{ clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)" }}
+              style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
             ></div>
 
             {/* Tethra Logo - Left half visible */}
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
-              style={{ clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)" }}
+              style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
             >
               <div className="relative bg-black rounded-full p-6 border-2 border-cyan-500/50">
                 <Image
@@ -1131,7 +1131,7 @@ export default function LandingPage() {
             </div>
 
             {/* Flow - Left Middle Top */}
-            <div className="absolute left-[22%] top-[38%] pointer-events-auto">
+            <div className="absolute left-[12%] top-[43%] pointer-events-auto">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-16 h-16 aspect-square rounded-full bg-gray-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-cyan-500/40 hover:border-cyan-500 hover:scale-110 transition-all cursor-pointer">
                   <svg viewBox="0 0 225 225" className="w-10 h-10" fill="none">
@@ -1153,7 +1153,7 @@ export default function LandingPage() {
             </div>
 
             {/* Foundry - Left Top */}
-            <div className="absolute left-[15%] top-[25%] pointer-events-auto">
+            <div className="absolute left-[19%] top-[22%] pointer-events-auto">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-16 h-16 aspect-square rounded-full bg-gray-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-cyan-500/40 hover:border-cyan-500 hover:scale-110 transition-all cursor-pointer">
                   <svg viewBox="0 0 32 32" className="w-9 h-9" fill="white">
@@ -1167,7 +1167,7 @@ export default function LandingPage() {
             </div>
 
             {/* Ethers.js - Left Bottom */}
-            <div className="absolute left-[15%] bottom-[25%] pointer-events-auto">
+            <div className="absolute left-[19%] bottom-[21%] pointer-events-auto">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-16 h-16 aspect-square rounded-full bg-gray-900/90 backdrop-blur-sm flex items-center justify-center border-2 border-cyan-500/40 hover:border-cyan-500 hover:scale-110 transition-all cursor-pointer">
                   <svg viewBox="0 0 293 163" className="w-10 h-10" fill="none">
@@ -1231,7 +1231,7 @@ export default function LandingPage() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
               <button
                 onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="relative group cursor-pointer focus:outline-none"
                 aria-label="Back to top"
@@ -1240,13 +1240,13 @@ export default function LandingPage() {
                 <div
                   className="absolute inset-0 rounded-full border-2 border-cyan-500/30 scale-125"
                   style={{
-                    animation: "rotate 15s linear infinite",
+                    animation: 'rotate 15s linear infinite',
                   }}
                 />
                 <div
                   className="absolute inset-0 rounded-full border-2 border-emerald-500/30 scale-150"
                   style={{
-                    animation: "rotate 20s linear infinite reverse",
+                    animation: 'rotate 20s linear infinite reverse',
                   }}
                 />
 
@@ -1259,8 +1259,8 @@ export default function LandingPage() {
                     className="absolute inset-0 rounded-full blur-2xl"
                     style={{
                       background:
-                        "conic-gradient(from 0deg, #06b6d4, #10b981, #06b6d4, #10b981, #06b6d4)",
-                      animation: "rotate 3s linear infinite",
+                        'conic-gradient(from 0deg, #06b6d4, #10b981, #06b6d4, #10b981, #06b6d4)',
+                      animation: 'rotate 3s linear infinite',
                     }}
                   ></div>
                 </div>
@@ -1283,59 +1283,59 @@ export default function LandingPage() {
               className="relative w-full max-w-2xl mx-auto aspect-square"
               style={{
                 animation: isChainsVisible
-                  ? "rotateChains 60s linear infinite"
-                  : "none",
+                  ? 'rotateChains 60s linear infinite'
+                  : 'none',
               }}
             >
               {[
                 {
-                  name: "Bitcoin",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png",
+                  name: 'Bitcoin',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoin/info/logo.png',
                   position: 0,
                 },
                 {
-                  name: "Ethereum",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png",
+                  name: 'Ethereum',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png',
                   position: 1,
                 },
                 {
-                  name: "Solana",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png",
+                  name: 'Solana',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png',
                   position: 2,
                 },
                 {
-                  name: "Avalanche",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/avalanchex/info/logo.png",
+                  name: 'Avalanche',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/avalanchex/info/logo.png',
                   position: 3,
                 },
                 {
-                  name: "NEAR",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/near/info/logo.png",
+                  name: 'NEAR',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/near/info/logo.png',
                   position: 4,
                 },
                 {
-                  name: "BNB",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/info/logo.png",
+                  name: 'BNB',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/binance/info/logo.png',
                   position: 5,
                 },
                 {
-                  name: "Ripple",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ripple/info/logo.png",
+                  name: 'Ripple',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ripple/info/logo.png',
                   position: 6,
                 },
                 {
-                  name: "Arbitrum",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png",
+                  name: 'Arbitrum',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/arbitrum/info/logo.png',
                   position: 7,
                 },
                 {
-                  name: "Polygon",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png",
+                  name: 'Polygon',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/polygon/info/logo.png',
                   position: 8,
                 },
                 {
-                  name: "Dogecoin",
-                  logo: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png",
+                  name: 'Dogecoin',
+                  logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png',
                   position: 9,
                 },
               ].map((chain, index) => {
@@ -1349,12 +1349,12 @@ export default function LandingPage() {
                   <div
                     key={chain.name}
                     className={`absolute group/chain cursor-pointer transition-all duration-1000 ease-out ${
-                      isChainsVisible ? "opacity-100" : "opacity-0"
+                      isChainsVisible ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
-                      left: isChainsVisible ? `${x}%` : "50%",
-                      top: isChainsVisible ? `${y}%` : "50%",
-                      transform: "translate(-50%, -50%)",
+                      left: isChainsVisible ? `${x}%` : '50%',
+                      top: isChainsVisible ? `${y}%` : '50%',
+                      transform: 'translate(-50%, -50%)',
                       transitionDelay: `${index * 100}ms`,
                     }}
                   >
@@ -1363,10 +1363,10 @@ export default function LandingPage() {
                       className="absolute w-0.5 bg-gradient-to-r from-cyan-500/20 to-transparent opacity-0 group-hover/chain:opacity-100 transition-opacity duration-300"
                       style={{
                         height: `${radius * 2}%`,
-                        transformOrigin: "top center",
+                        transformOrigin: 'top center',
                         transform: `rotate(${angle + 90}deg)`,
-                        top: "50%",
-                        left: "50%",
+                        top: '50%',
+                        left: '50%',
                       }}
                     />
 
@@ -1375,8 +1375,8 @@ export default function LandingPage() {
                       className="relative"
                       style={{
                         animation: isChainsVisible
-                          ? "rotateChains 60s linear infinite reverse"
-                          : "none",
+                          ? 'rotateChains 60s linear infinite reverse'
+                          : 'none',
                       }}
                     >
                       {/* Glow on Hover */}
@@ -1644,12 +1644,14 @@ export default function LandingPage() {
               <span className="hover:text-white transition-colors">
                 Discord
               </span>
-              <Link href="https://github.com/Tethra-Dex" target="_blank" className="hover:text-white transition-colors">
+              <Link
+                href="https://github.com/Tethra-Dex"
+                target="_blank"
+                className="hover:text-white transition-colors"
+              >
                 GitHub
               </Link>
-              <span className="hover:text-white transition-colors">
-                Docs
-              </span>
+              <span className="hover:text-white transition-colors">Docs</span>
             </div>
           </div>
         </div>
